@@ -8,6 +8,7 @@ public class CrearActores extends Thread {
     private Mesero[] meseros;
     private Cocinero[] cocineros;
     private Random random;
+    private Monitor monitor;
 
     public CrearActores(Cliente[] clientes, Mesero[] meseros, Cocinero[] cocineros) {
         this.clientes = clientes;
@@ -16,9 +17,10 @@ public class CrearActores extends Thread {
         random = new Random(System.currentTimeMillis());
     }
 
-    public CrearActores(Cliente[] clientes){
+    public CrearActores(Cliente[] clientes, Monitor monitor){
         this.clientes = clientes;
         random = new Random(System.currentTimeMillis());
+        this.monitor = monitor;
     }
 
     public boolean getReservacion(){
@@ -33,6 +35,7 @@ public class CrearActores extends Thread {
             cliente = clientes[a];
             cliente.setName("C "+ a);
             cliente.setReservation(getReservacion());
+            cliente.setMonitor(monitor);
             new Thread(cliente, "C "+ a).start();
             try {
                 Thread.sleep(random.nextInt(400)+100);
@@ -41,7 +44,7 @@ public class CrearActores extends Thread {
             }
         }
 
-        Mesero mesero;
+        /*Mesero mesero;
         for (int a =0; a< Config.cantMeseros; a++){
             mesero = meseros[a];
             //new Thread(mesero,a).start();
@@ -61,9 +64,6 @@ public class CrearActores extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
-
-
-
+        }*/
     }
 }
