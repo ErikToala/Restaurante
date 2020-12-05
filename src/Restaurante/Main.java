@@ -1,5 +1,8 @@
 package Restaurante;
 
+import Restaurante.Model.Cliente;
+import Restaurante.Model.Config;
+import Restaurante.Model.CrearActores;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,11 +16,21 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("View/Restaurante.fxml"));
         primaryStage.setTitle("Restaurante Marriot");
         primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+        //primaryStage.show();
     }
 
 
     public static void main(String[] args) {
+        Cliente[] clientes = new Cliente[20];
+        for(int i = 0; i < Config.cantClientes; i++){
+            Cliente cliente = new Cliente();
+            clientes[i] = cliente;
+
+        }
+        CrearActores create = new CrearActores(clientes);
+
+        create.start();
+
         launch(args);
     }
 }

@@ -1,6 +1,8 @@
 package Restaurante.Model;
 
-public class Mesero {
+import java.util.Observable;
+
+public class Mesero extends Observable implements Runnable {
 
     private Orden orden;
 
@@ -10,5 +12,10 @@ public class Mesero {
 
     public Orden getOrden() {
         return orden;
+    }
+
+    @Override
+    public void run() {
+
     }
 }

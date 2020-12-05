@@ -1,6 +1,8 @@
 package Restaurante.Model;
 
-public class Cocinero {
+import java.util.Observable;
+
+public class Cocinero extends Observable implements Runnable {
 
     private Orden orden;
 
@@ -10,5 +12,10 @@ public class Cocinero {
 
     public Orden getOrden() {
         return orden;
+    }
+
+    @Override
+    public void run() {
+
     }
 }

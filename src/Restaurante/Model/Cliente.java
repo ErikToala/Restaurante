@@ -1,23 +1,25 @@
 package Restaurante.Model;
 
-public class Cliente {
+import java.util.Observable;
 
-    private Lugar place;
+public class Cliente extends Observable implements Runnable{
+
+    private String name;
     private Boolean isReservation;
 
     public Cliente() { }
 
-    public Cliente(Lugar place, Boolean isReservation) {
-        this.place = place;
+    public Cliente(String name, Boolean isReservation) {
+        this.name = name;
         this.isReservation = isReservation;
     }
 
-    public void setPlace(Lugar place) {
-        this.place = place;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Lugar getPlace() {
-        return place;
+    public String getName() {
+        return name;
     }
 
     public void setReservation(Boolean reservation) {
@@ -26,5 +28,11 @@ public class Cliente {
 
     public Boolean getReservation() {
         return isReservation;
+    }
+
+    @Override
+    public void run() {
+        System.out.println(this.getReservation());
+        System.out.println(Thread.currentThread().getName());
     }
 }
