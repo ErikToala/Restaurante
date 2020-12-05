@@ -8,7 +8,7 @@ public class Config {
     public static double cantMeseros = (capacidadRest * .10);
     public static double cantCocinero = (capacidadRest * .10);
     public static double totalReservaciones = capacidadRest * .20;
-    public static int numReservacion = 0;
+    public static double numReservacion = 0;
     public static int clientesAfuera = 0;
 
 }
