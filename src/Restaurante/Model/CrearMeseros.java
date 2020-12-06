@@ -15,14 +15,9 @@ public class CrearMeseros extends Thread {
     @Override
     public void run() {
         Mesero mesero;
-        for (int a =0; a< Config.cantMeseros; a++){
+        for (int a =0; a < Config.cantMeseros; a++){
             mesero = meseros[a];
             new Thread(mesero,"Mesero"+a).start();
-            try {
-                Thread.sleep(random.nextInt(400)+100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
 }

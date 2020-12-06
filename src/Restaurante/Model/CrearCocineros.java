@@ -18,11 +18,6 @@ public class CrearCocineros extends Thread {
         for (int c =0; c< Config.cantCocinero; c++){
             cocinero = cocineros[c];
             new Thread(cocinero,"Chef"+c).start();
-            try {
-                Thread.sleep(random.nextInt(400)+100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
 }

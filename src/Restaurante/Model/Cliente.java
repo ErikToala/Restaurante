@@ -56,8 +56,8 @@ public class Cliente extends Observable implements Runnable{
         if(isReservation){
             try {
                 monitor.reservaciones(name);
-                Thread.sleep(ThreadLocalRandom.current().nextInt(3000) + 1000L);
-                //Thread.sleep(random.nextInt(3000)+3000);
+                //Thread.sleep(ThreadLocalRandom.current().nextInt(3000) + 1000L);
+                Thread.sleep(random.nextInt(3000)+1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -66,15 +66,9 @@ public class Cliente extends Observable implements Runnable{
         }
         monitor.asignarLugar(isReservation, name);
         monitor.ordenTomada();
-        //Método que pasa por parametro la orden tomada y bloquea al cliente
-        //Cuando el mesero le lleve la comida se libera el cliente y va a espera
-
-        //Cliente libera al mesero
-        //Mesero atiende al cliente y lo bloquea
-        //Mesero lleva la orden y lo libera
         try {
-            Thread.sleep(ThreadLocalRandom.current().nextInt(3000) + 1000L);
-            //Thread.sleep(random.nextInt(4000)+1000);
+            //Thread.sleep(ThreadLocalRandom.current().nextInt(3000) + 1000L);
+            Thread.sleep(random.nextInt(5000)+2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

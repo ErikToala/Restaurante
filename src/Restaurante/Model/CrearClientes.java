@@ -30,7 +30,7 @@ public class CrearClientes extends Thread {
             cliente = clientes[a];
             cliente.setName("C"+ a);
             cliente.setReservation(getReservacion());
-            new Thread(cliente, "C "+ a).start();
+            new Thread(cliente, "C"+ a).start();
             try {
                 Thread.sleep(random.nextInt(400)+100);
             } catch (InterruptedException e) {
