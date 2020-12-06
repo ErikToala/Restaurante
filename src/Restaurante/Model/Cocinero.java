@@ -12,6 +12,14 @@ public class Cocinero extends Observable implements Runnable {
 
     private Monitor monitor;
 
+    public Monitor getMonitor() {
+        return monitor;
+    }
+
+    public void setMonitor(Monitor monitor) {
+        this.monitor = monitor;
+    }
+
     public void setOrden(Orden orden) {
         this.orden = orden;
     }

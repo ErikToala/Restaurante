@@ -22,6 +22,11 @@ public class Cliente extends Observable implements Runnable{
         random = new Random(System.currentTimeMillis());
     }
 
+    public Cliente(Monitor monitor) {
+        this.monitor = monitor;
+        random = new Random(System.currentTimeMillis());
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -73,6 +78,7 @@ public class Cliente extends Observable implements Runnable{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         monitor.salirCliente(isReservation, name);
 
     }
