@@ -1,22 +1,22 @@
 package Restaurante.Model;
 
 public class Orden {
-    private int id;
+    private String name;
     private String status;
 
     public Orden() { }
 
-    public Orden(int id, String status) {
-        this.id = id;
+    public Orden(String name, String status) {
+        this.name = name;
         this.status = status;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
     public void setStatus(String status) {

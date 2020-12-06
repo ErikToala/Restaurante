@@ -60,6 +60,13 @@ public class Cliente extends Observable implements Runnable{
             monitor.recibirCliente();
         }
         monitor.asignarLugar(isReservation, name);
+        monitor.ordenTomada();
+        //Método que pasa por parametro la orden tomada y bloquea al cliente
+        //Cuando el mesero le lleve la comida se libera el cliente y va a espera
+
+        //Cliente libera al mesero
+        //Mesero atiende al cliente y lo bloquea
+        //Mesero lleva la orden y lo libera
         try {
             Thread.sleep(ThreadLocalRandom.current().nextInt(3000) + 1000L);
             //Thread.sleep(random.nextInt(4000)+1000);

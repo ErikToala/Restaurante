@@ -14,14 +14,15 @@ public class CrearActores extends Thread {
         this.clientes = clientes;
         this.meseros = meseros;
         this.cocineros = cocineros;
+        this.monitor = monitor;
         random = new Random(System.currentTimeMillis());
     }
 
-    public CrearActores(Cliente[] clientes, Monitor monitor){
+    /*public CrearActores(Cliente[] clientes, Monitor monitor){
         this.clientes = clientes;
         random = new Random(System.currentTimeMillis());
         this.monitor = monitor;
-    }
+    }*/
 
     public boolean getReservacion(){
         Random rnd = new Random();
@@ -44,7 +45,7 @@ public class CrearActores extends Thread {
             }
         }
 
-        /*Mesero mesero;
+        Mesero mesero;
         for (int a =0; a< Config.cantMeseros; a++){
             mesero = meseros[a];
             //new Thread(mesero,a).start();
@@ -64,6 +65,6 @@ public class CrearActores extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }*/
+        }
     }
 }

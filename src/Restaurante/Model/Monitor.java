@@ -1,21 +1,30 @@
 package Restaurante.Model;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Monitor {
 
     private Lugar[] lugares;
+    private ArrayList<Orden> ordenes = new ArrayList<>();
+    private ArrayList<Orden> comidas = new ArrayList<>();
     private Random rnd;
+    private boolean esperando, comidaLista, isCalled;
     private int nCliente;
 
     public Monitor() {
         lugares = new Lugar[Config.cantClientes];
         for(int i=0; i<Config.cantClientes; i++){
-            lugares[i] = new Lugar("","Disponible");
+            lugares[i] = new Lugar("","Disponible", false);
         }
         rnd = new Random(System.currentTimeMillis());
         nCliente = 0;
+        esperando = true;
+        comidaLista= false;
+        isCalled=false;
     }
+
+    //Recepcionista
 
     public synchronized void recibirCliente(){
         while(nCliente == Config.capacidadRest){
@@ -71,7 +80,98 @@ public class Monitor {
                 }
             }
         }
+        isCalled = true;
+        this.notifyAll();
     }
+
+ // Mesero
+    public synchronized void atenderCliente(){
+        while(nCliente==0 || !isCalled){
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        for(int i =0; i<Config.capacidadRest;i++){
+            if(lugares[i].getStatus().equals("Ocupado")){
+                if(!lugares[i].isAttended()){
+                    lugares[i].setAttended(true);
+                    String name;
+                    name = lugares[i].getName();
+                    Orden orden = new Orden(name, "En proceso");
+                    ordenes.add(orden);
+                    isCalled = false;
+                    this.notifyAll();
+                }
+            }
+        }
+    }
+
+    public synchronized void verificarOrden(){
+
+        if(comidaLista){
+            for(int i=0;i<comidas.size();i++){
+                if(comidas.get(i).equals("En proceso")){
+                    comidas.get(i).setStatus("Listo");
+                    Orden orden;
+                    orden = comidas.get(i);
+                    comidas.remove(i);
+                    for(int j=0;j<Config.capacidadRest;i++){
+                        if(lugares[j].getName().equals(orden.getName())){
+                            esperando=false;
+                            Config.irAMesa = j;
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+
+
+ //Cocinero
+    public synchronized void cocinarComida(){
+        while(ordenes.isEmpty()){
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        if(comidas.isEmpty()){
+            comidaLista=false;
+        }
+        for(int i=0;i<ordenes.size();i++){
+            if(ordenes.get(i).getStatus().equals("En proceso")){
+                Orden orden;
+                orden = ordenes.get(i);
+                ordenes.remove(i);
+                comidas.add(orden);
+                comidaLista=true;
+                break;
+            }
+        }
+    }
+
+
+// Cliente
+
+    public synchronized void ordenTomada(){
+        while(esperando==true){
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        esperando=true;
+        Config.cantOrden++;
+    }
+
 
     public synchronized void salirCliente(boolean isReservation, String name){
         for(int i=0; i < Config.capacidadRest; i++){
