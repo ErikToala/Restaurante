@@ -1,6 +1,7 @@
 package Restaurante.Model;
 
 import javafx.scene.control.skin.TableHeaderRow;
+import javafx.scene.image.Image;
 
 import java.util.Observable;
 import java.util.Random;
@@ -12,13 +13,15 @@ public class Cliente extends Observable implements Runnable{
     private Boolean isReservation;
     private Random random;
     private Monitor monitor;
+    private Image image;
 
     public Cliente() { }
 
-    public Cliente(String name, Boolean isReservation, Monitor monitor) {
+    public Cliente(String name, Boolean isReservation, Monitor monitor, Image image) {
         this.name = name;
         this.isReservation = isReservation;
         this.monitor = monitor;
+        this.image = image;
         random = new Random(System.currentTimeMillis());
     }
 
@@ -49,6 +52,14 @@ public class Cliente extends Observable implements Runnable{
 
     public Monitor getMonitor() {
         return monitor;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     @Override

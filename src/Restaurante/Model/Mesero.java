@@ -1,14 +1,18 @@
 package Restaurante.Model;
 
+import javafx.scene.image.Image;
+
 import java.util.Observable;
 
 public class Mesero extends Observable implements Runnable {
 
     private Orden orden;
     private Monitor monitor;
+    private Image image;
 
-    public Mesero(Monitor monitor) {
+    public Mesero(Monitor monitor, Image image) {
         this.monitor = monitor;
+        this.image = image;
     }
 
     public Monitor getMonitor() {
@@ -17,6 +21,14 @@ public class Mesero extends Observable implements Runnable {
 
     public void setMonitor(Monitor monitor) {
         this.monitor = monitor;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public void setOrden(Orden orden) {

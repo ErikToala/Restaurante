@@ -14,12 +14,12 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("View/Restaurante.fxml"));
         primaryStage.setTitle("Restaurante Marriot");
         primaryStage.setScene(new Scene(root));
-        //primaryStage.show();
+        primaryStage.show();
     }
 
 
     public static void main(String[] args) {
-        Cliente[] clientes = new Cliente[20];
+       /* Cliente[] clientes = new Cliente[20];
         Mesero[] meseros = new Mesero[2];
         Cocinero[] cocineros = new Cocinero[2];
 
@@ -44,7 +44,7 @@ public class Main extends Application {
 
         create.start();
         meseritos.start();
-        chef.start();
+        chef.start();*/
 
         launch(args);
     }

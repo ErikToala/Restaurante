@@ -1,19 +1,32 @@
 package Restaurante.Model;
 
+import javafx.scene.effect.ImageInput;
+import javafx.scene.image.Image;
+
 import java.util.Observable;
 
 public class Cocinero extends Observable implements Runnable {
 
     private Orden orden;
+    private Image image;
 
-    public Cocinero(Monitor monitor) {
+    public Cocinero(Monitor monitor, Image image) {
         this.monitor = monitor;
+        this.image = image;
     }
 
     private Monitor monitor;
 
     public Monitor getMonitor() {
         return monitor;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public void setMonitor(Monitor monitor) {
