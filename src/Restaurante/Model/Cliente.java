@@ -83,11 +83,11 @@ public class Cliente extends Observable implements Runnable{
         this.notifyObservers("LugarAsig");
         try {
             //Thread.sleep(ThreadLocalRandom.current().nextInt(3000) + 1000L);
-            Thread.sleep(random.nextInt(2000));
+            Thread.sleep(random.nextInt(2000)+500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        monitor.ordenTomada();
+        monitor.ordenTomada(lugar);
         setChanged();
         notifyObservers("OrdenTomada");
         try {

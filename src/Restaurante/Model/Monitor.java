@@ -25,7 +25,7 @@ public class Monitor {
         //nCliente = 0;
         comidaLista= false;
         esperando=false;
-        isCalled=false;
+        //isCalled=false;
     }
 
     //Recepcionista
@@ -98,20 +98,20 @@ public class Monitor {
                 }
             }
         }
-        isCalled=true;
+        //isCalled=true;
         this.notifyAll();
     }
 
     //Mesero
     public synchronized void atenderCliente(){
-        while(Config.nClientes==0 || !isCalled){
+        while(Config.nClientes==0){
             try {
                 this.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        isCalled=false;
+        //isCalled=false;
         for(int i =0; i<Config.capacidadRest;i++){
             if(lugares[i].getStatus().equals("Ocupado")){
                 Config.irAMesa = i;
@@ -128,17 +128,17 @@ public class Monitor {
     }
 
     //Cliente
-    public synchronized void ordenTomada(){
+    public synchronized void ordenTomada(int lugar){
         //esperando = true;
-        /*while(esperando){
+        while(!lugares[lugar].getStatus().equals("Servido")){
             try {
-                System.out.println("ESPERANDO..."+ Thread.currentThread().getName()+" - ");
+                //System.out.println("ESPERANDO..."+ Thread.currentThread().getName()+" - ");
                 this.wait();
 
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        //}*/
+        }
         System.out.println(".....TIENE SU COMIDA "+ Thread.currentThread().getName()+ " ");
         Config.cantOrden++;
     }
@@ -156,9 +156,10 @@ public class Monitor {
                     for(int j=0;j<Config.capacidadRest;j++){
                         if(lugares[j].getStatus().equals("Atendido")){
                             if(lugares[j].getName().equals(orden.getName())){
+                                lugares[j].setStatus("Servido");
                                 //esperando=false;
                                 this.notifyAll();
-                                System.out.println("Entrego orden "+ Thread.currentThread().getName());
+                                System.out.println("Entrego orden "+ Thread.currentThread().getName()+"al "+lugares[j].getName());
                                 Config.mesaServida = j;
 
                                 break;
