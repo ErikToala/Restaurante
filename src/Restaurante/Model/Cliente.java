@@ -75,10 +75,18 @@ public class Cliente extends Observable implements Runnable{
         }else{
             monitor.recibirCliente();
         }
+        Config.clientesEntrando++;
+        Config.clientesAfuera--;
         monitor.asignarLugar(isReservation, name);
         lugar = Config.lugar;
         this.setChanged();
         this.notifyObservers("LugarAsig");
+        try {
+            //Thread.sleep(ThreadLocalRandom.current().nextInt(3000) + 1000L);
+            Thread.sleep(random.nextInt(2000));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         monitor.ordenTomada();
         setChanged();
         notifyObservers("OrdenTomada");
@@ -88,8 +96,9 @@ public class Cliente extends Observable implements Runnable{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        Config.clientesSaliendo++;
+        monitor.salirCliente(isReservation, name, lugar);
 
-        monitor.salirCliente(isReservation, name);
         this.setChanged();
         this.notifyObservers("Salio");
     }

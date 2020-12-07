@@ -37,6 +37,8 @@ public class Cocinero extends Observable implements Runnable {
     public void run() {
         while(true){
             monitor.cocinarComida();
+            this.setChanged();
+            this.notifyObservers("ComidaLista");
         }
     }
 }

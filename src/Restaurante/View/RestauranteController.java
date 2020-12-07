@@ -3,6 +3,8 @@ package Restaurante.View;
 import Restaurante.Model.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -32,6 +34,7 @@ public class RestauranteController implements Observer {
     private ImageView[] chefsImg = new ImageView[2];
     private ImageView[] reservacionesImg = new ImageView[20];
     private ImageView[] comidasImg = new ImageView[20];
+    private ImageView[] bufferComidas = new ImageView[5];
 
     @FXML
     private AnchorPane canvas;
@@ -39,7 +42,18 @@ public class RestauranteController implements Observer {
     private ImageView mesero1Img;
     @FXML
     private ImageView mesero0Img;
+    @FXML
+    private Label lbCountIn;
+    @FXML
+    private Label lbCountOut;
+    /*@FXML
+    private Label lbCountEsperando;*/
 
+    @FXML
+    private Label lbCountClient;
+
+    @FXML
+    private Label lbCountPeople;
     @FXML
     public void initialize(){
 
@@ -151,12 +165,30 @@ public class RestauranteController implements Observer {
            }
         }
 
+        for(int k=0;k<5;k++){
+            bufferComidas[k] = new ImageView();
+            bufferComidas[k].setFitWidth(30);
+            bufferComidas[k].setFitHeight(30);
+            bufferComidas[k].setLayoutX(178);
+            bufferComidas[k].setLayoutY(80+(35*k));
+            canvas.getChildren().add(bufferComidas[k]);
+        }
+
         Monitor monitor = new Monitor();
+        int numR = 0;
+        int numN = 0;
         for(int i = 0; i < Config.cantClientes; i++){
             Cliente cliente = new Cliente("C"+i,getReservacion(),monitor, getClienteImage());
             cliente.addObserver(this);
+            /*System.out.println("Quiere reservación? "+cliente.getReservation());
+            if(cliente.getReservation()){
+                numR++;
+            }else{
+                numN++;
+            }*/
             clientes[i] = cliente;
         }
+        //System.out.println("Reservados: "+numR+" - Normales: "+numN);
 
         for(int j = 0; j < Config.cantMeseros; j++){
             Mesero mesero = new Mesero(monitor,imagesMesero[j]);
@@ -210,40 +242,56 @@ public class RestauranteController implements Observer {
                     });
                 }
                 Platform.runLater(()->{
+                    lbCountPeople.setText("Afuera: "+Config.clientesAfuera);
+                    lbCountIn.setText("Entrando: "+Config.clientesEntrando);
                     //System.out.println("_______Llego "+((Cliente) o).getName()+" - "+((Cliente) o).getLugar());
                     valor.setImage(((Cliente) o).getImage());
 
                 });
 
             }
-            /*if(String.valueOf(arg).compareTo("OrdenTomada")==0){
-                ImageView valorC = comidasImg[Config.mesaServida];
+            if(String.valueOf(arg).compareTo("OrdenTomada")==0){
+                ImageView valorC = comidasImg[((Cliente) o).getLugar()];
                 Image img = new Image("file:src/Restaurante/Resources/Comida.png");
                 Platform.runLater(()->{
                     valorC.setImage(img);
                 });
-            }*/
+            }
             if(String.valueOf(arg).compareTo("Salio")==0){
+                ImageView valorC = comidasImg[((Cliente) o).getLugar()];
                 ImageView valor = clientesImg[((Cliente) o).getLugar()];
-                //ImageView valorC = comidasImg[Config.mesaServida];
                 //System.out.println("{{{{{{{{{{{{{{{{Salio"+((Cliente) o).getName()+" - "+((Cliente) o).getLugar());
                 Platform.runLater(()->{
                     valor.setImage(null);
-                    //valorC.setImage(null);
+                    valorC.setImage(null);
+                    lbCountOut.setText("Saliendo: "+Config.clientesSaliendo);
                 });
             }
         }else if(o instanceof Mesero){
             ImageView valorM = meserosImg[Config.irAMesa];
             if(String.valueOf(arg).compareTo("Atendido")==0){
                 System.out.println(Thread.currentThread().getName()+ " Atendió a Cliente");
-                Platform.runLater(()->{
+
+                if(((Mesero) o).getImage().getUrl().equals("file:src/Restaurante/Resources/Mesero0.png")){
+                    Platform.runLater(()->{
+                        mesero0Img.setVisible(false);
+                        valorM.setImage(((Mesero )o).getImage());
+                    });
+                }else{
+                    Platform.runLater(()->{
+                        mesero1Img.setVisible(false);
+                        valorM.setImage(((Mesero )o).getImage());
+                    });
+                }
+
+                /*Platform.runLater(()->{
                     valorM.setImage(((Mesero )o).getImage());
                     mesero0Img.setVisible(false);
                     mesero1Img.setVisible(false);
 
-                });
+                });*/
             }
-            if(String.valueOf(arg).compareTo("AgregarOrden")==0){
+            /*if(String.valueOf(arg).compareTo("AgregarOrden")==0){
                 if(((Mesero) o).getImage().getUrl().equals("file:src/Restaurante/Resources/Mesero0.png")){
                     Platform.runLater(()->{
                         mesero0Img.setVisible(true);
@@ -255,13 +303,21 @@ public class RestauranteController implements Observer {
                         valorM.setImage(null);
                     });
                 }
-            }
+            }*/
             /*if(String.valueOf(arg).compareTo("Servido")==0){
-                ImageView valorM = meserosImg[Config.irAMesa];
+                //ImageView valorM = meserosImg[Config.irAMesa];
                 Platform.runLater(()->{
                     valorM.setImage(((Mesero )o).getImage());
                 });
             }*/
+        }else if(o instanceof Cocinero){
+            if(String.valueOf(arg).compareTo("ComidaLista")==0){
+                Image img = new Image("file:src/Restaurante/Resources/Comida.png");
+                ImageView valor = bufferComidas[Config.numComida];
+                Platform.runLater(()->{
+                    valor.setImage(img);
+                });
+            }
         }
     }
 

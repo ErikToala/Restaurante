@@ -39,14 +39,6 @@ public class Mesero extends Observable implements Runnable {
             monitor.atenderCliente();
             this.setChanged();
             this.notifyObservers("Atendido");
-            /*try {
-                Thread.sleep(random.nextInt(1000));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }*/
-            monitor.agregarOrden();
-            this.setChanged();
-            this.notifyObservers("AgregarOrden");
             monitor.verificarOrden();
             this.setChanged();
             this.notifyObservers("Servido");

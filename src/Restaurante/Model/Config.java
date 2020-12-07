@@ -16,5 +16,13 @@ public class Config {
     public static int cantOrden = 0;
     public static int irAMesa = 0;
     public static double numReservacion = 0;
-    public static int clientesAfuera = 0;
+    public static int nClientes = 0;
+    public static int clientesAfuera = cantClientes;
+    public static int clientesEntrando = 0;
+    public static int clientesSaliendo = 0;
+    public static int clientesEsperando = 0;
+
+    public static int numComida = 0;
+
+
 }
