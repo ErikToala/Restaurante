@@ -51,7 +51,7 @@ public class Monitor {
                 lugares[i].setStatus("Reservado");
                 lugares[i].setName(name);
                 System.out.println(name+" con reservación en lugar: "+ i);
-                Config.lugar = i;
+                Config.lugarReservado = i;
                 Config.numReservacion++;
                 break;
             }
@@ -138,6 +138,7 @@ public class Monitor {
                                 this.notifyAll();
                                 esperando=false;
                                 System.out.println("Entrego orden "+ Thread.currentThread().getName());
+                                Config.mesaServida = j;
                                 Config.irAMesa = j;
                                 break;
                             }

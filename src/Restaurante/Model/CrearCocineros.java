@@ -5,11 +5,9 @@ import java.util.Random;
 public class CrearCocineros extends Thread {
 
     private Cocinero[] cocineros;
-    private Random random;
 
     public CrearCocineros(Cocinero[] cocineros){
         this.cocineros = cocineros;
-        random = new Random(System.currentTimeMillis());
     }
 
     @Override

@@ -4,9 +4,6 @@ public class Lugar {
     private String name;
     private String status;
 
-
-    public Lugar() { }
-
     public Lugar(String name, String status) {
         this.name = name;
         this.status = status;

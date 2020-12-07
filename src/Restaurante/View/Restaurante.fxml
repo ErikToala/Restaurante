@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="canvas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="734.0" prefWidth="857.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Restaurante.View.RestauranteController">
+<AnchorPane fx:id="canvas" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="734.0" prefWidth="857.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Restaurante.View.RestauranteController">
    <children>
       <ImageView fitHeight="586.0" fitWidth="794.0" layoutX="29.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -95,11 +95,6 @@
       <ImageView fitHeight="42.0" fitWidth="42.0" layoutX="771.0" layoutY="429.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Resources/Arbustito.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="70.0" fitWidth="65.0" layoutX="193.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Resources/Bote.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="70.0" fitWidth="65.0" layoutX="32.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">

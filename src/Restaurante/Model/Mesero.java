@@ -6,7 +6,6 @@ import java.util.Observable;
 
 public class Mesero extends Observable implements Runnable {
 
-    private Orden orden;
     private Monitor monitor;
     private Image image;
 
@@ -31,19 +30,15 @@ public class Mesero extends Observable implements Runnable {
         this.image = image;
     }
 
-    public void setOrden(Orden orden) {
-        this.orden = orden;
-    }
-
-    public Orden getOrden() {
-        return orden;
-    }
-
     @Override
     public void run() {
         while(true){
             monitor.atenderCliente();
+            this.setChanged();
+            this.notifyObservers("Atendido");
             monitor.verificarOrden();
+            this.setChanged();
+            this.notifyObservers("Servido");
         }
     }
 }

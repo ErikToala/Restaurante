@@ -15,18 +15,11 @@ public class Cliente extends Observable implements Runnable{
     private Monitor monitor;
     private Image image;
 
-    public Cliente() { }
-
     public Cliente(String name, Boolean isReservation, Monitor monitor, Image image) {
         this.name = name;
         this.isReservation = isReservation;
         this.monitor = monitor;
         this.image = image;
-        random = new Random(System.currentTimeMillis());
-    }
-
-    public Cliente(Monitor monitor) {
-        this.monitor = monitor;
         random = new Random(System.currentTimeMillis());
     }
 
@@ -67,6 +60,8 @@ public class Cliente extends Observable implements Runnable{
         if(isReservation){
             try {
                 monitor.reservaciones(name);
+                this.setChanged();
+                this.notifyObservers("Reservacion");
                 //Thread.sleep(ThreadLocalRandom.current().nextInt(3000) + 1000L);
                 Thread.sleep(random.nextInt(3000)+1000);
             } catch (InterruptedException e) {
@@ -76,7 +71,11 @@ public class Cliente extends Observable implements Runnable{
             monitor.recibirCliente();
         }
         monitor.asignarLugar(isReservation, name);
+        this.setChanged();
+        this.notifyObservers("LugarAsig");
         monitor.ordenTomada();
+        setChanged();
+        notifyObservers("OrdenTomada");
         try {
             //Thread.sleep(ThreadLocalRandom.current().nextInt(3000) + 1000L);
             Thread.sleep(random.nextInt(5000)+2000);
@@ -85,6 +84,7 @@ public class Cliente extends Observable implements Runnable{
         }
 
         monitor.salirCliente(isReservation, name);
-
+        this.setChanged();
+        this.notifyObservers("Salio");
     }
 }

@@ -5,11 +5,9 @@ import java.util.Random;
 public class CrearMeseros extends Thread {
 
     private Mesero[] meseros;
-    private Random random;
 
     public CrearMeseros(Mesero[] meseros) {
         this.meseros = meseros;
-        random = new Random(System.currentTimeMillis());
     }
 
     @Override
