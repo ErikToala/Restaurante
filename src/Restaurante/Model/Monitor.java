@@ -65,8 +65,8 @@ public class Monitor {
             for(int i=0; i < Config.capacidadRest; i++){
                 if(lugares[i].getName().equals(name)){
                     lugares[i].setStatus("Ocupado");
-                    System.out.println(name+" llego a su reservación en lugar : "+ i);
                     Config.lugar = i;
+                    System.out.println(name+" llego a su reservación en lugar : "+ i);
                     break;
                 }
             }
@@ -77,6 +77,7 @@ public class Monitor {
                     lugares[i].setName(name);
                     System.out.println(name+" en lugar : "+ i);
                     Config.lugar = i;
+                    //System.out.println(Config.lugar+"-"+lugares[i].getName());
                     break;
                 }
             }
@@ -110,10 +111,10 @@ public class Monitor {
 
     //Cliente
     public synchronized void ordenTomada(){
-        esperando = true;
+        //esperando = true;
         while(esperando){
             try {
-                //System.out.println("ESPERANDO..."+ Thread.currentThread().getName()+" - ");
+                System.out.println("ESPERANDO..."+ Thread.currentThread().getName()+" - ");
                 this.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -135,8 +136,9 @@ public class Monitor {
                     for(int j=0;j<Config.capacidadRest;j++){
                         if(lugares[j].getStatus().equals("Atendido")){
                             if(lugares[j].getName().equals(orden.getName())){
+                                //esperando=false;
+
                                 this.notifyAll();
-                                esperando=false;
                                 System.out.println("Entrego orden "+ Thread.currentThread().getName());
                                 Config.mesaServida = j;
                                 Config.irAMesa = j;
@@ -169,7 +171,7 @@ public class Monitor {
             if(ordenes.get(i).getStatus().equals("En proceso")){
                 Orden orden;
                 orden = ordenes.get(i);
-                System.out.println(Thread.currentThread().getName()+" cocinó la orden "+orden.getName());
+                //System.out.println(Thread.currentThread().getName()+" cocinó la orden "+orden.getName());
                 ordenes.remove(i);
                 comidas.add(orden);
                 comidaLista=true;

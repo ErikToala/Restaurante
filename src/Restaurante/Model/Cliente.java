@@ -13,6 +13,7 @@ public class Cliente extends Observable implements Runnable{
     private Boolean isReservation;
     private Random random;
     private Monitor monitor;
+    private int lugar;
     private Image image;
 
     public Cliente(String name, Boolean isReservation, Monitor monitor, Image image) {
@@ -55,6 +56,10 @@ public class Cliente extends Observable implements Runnable{
         this.image = image;
     }
 
+    public int getLugar() {
+        return lugar;
+    }
+
     @Override
     public void run() {
         if(isReservation){
@@ -62,7 +67,7 @@ public class Cliente extends Observable implements Runnable{
                 monitor.reservaciones(name);
                 this.setChanged();
                 this.notifyObservers("Reservacion");
-                //Thread.sleep(ThreadLocalRandom.current().nextInt(3000) + 1000L);
+
                 Thread.sleep(random.nextInt(3000)+1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -71,6 +76,7 @@ public class Cliente extends Observable implements Runnable{
             monitor.recibirCliente();
         }
         monitor.asignarLugar(isReservation, name);
+        lugar = Config.lugar;
         this.setChanged();
         this.notifyObservers("LugarAsig");
         monitor.ordenTomada();

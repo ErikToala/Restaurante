@@ -189,37 +189,44 @@ public class RestauranteController implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if(o instanceof Cliente){
-
             if(String.valueOf(arg).compareTo("Reservacion")==0){
-                ImageView valorR = reservacionesImg[Config.lugarReservado];
+                //.out.println("Hizo reservación: "+((Cliente) o).getName()+" - "+Config.lugarReservado);
                 Image img = new Image("file:src/Restaurante/Resources/Reservado.png");
+                ImageView valorRe = reservacionesImg[Config.lugarReservado];
                 Platform.runLater(()->{
-                    valorR.setImage(img);
+                    valorRe.setImage(img);
                 });
             }
             if(String.valueOf(arg).compareTo("LugarAsig")==0){
-                ImageView valorR = reservacionesImg[Config.lugarReservado];
-                ImageView valor = clientesImg[Config.lugar];
+                ImageView valor = clientesImg[((Cliente) o).getLugar()];
+                if(((Cliente) o).getReservation()){
+                    ImageView valorR = reservacionesImg[((Cliente) o).getLugar()];
+                    //System.out.println("********Llego "+((Cliente) o).getName()+" a la reservación" + ((Cliente) o).getLugar());
+                    Platform.runLater(()->{
+                        valorR.setImage(null);
+                    });
+                }
                 Platform.runLater(()->{
-                    valorR.setImage(null);
-                    valor.setImage(((Cliente )o).getImage());
+                    //System.out.println("_______Llego "+((Cliente) o).getName()+" - "+((Cliente) o).getLugar());
+                    valor.setImage(((Cliente) o).getImage());
+
                 });
+
             }
-            if(String.valueOf(arg).compareTo("OrdenTomada")==0){
+            /*if(String.valueOf(arg).compareTo("OrdenTomada")==0){
                 ImageView valorC = comidasImg[Config.mesaServida];
                 Image img = new Image("file:src/Restaurante/Resources/Comida.png");
                 Platform.runLater(()->{
                     valorC.setImage(img);
                 });
-            }
+            }*/
             if(String.valueOf(arg).compareTo("Salio")==0){
-                ImageView valorR = reservacionesImg[Config.lugarReservado];
-                ImageView valor = clientesImg[Config.lugar];
-                ImageView valorC = comidasImg[Config.mesaServida];
+                ImageView valor = clientesImg[((Cliente) o).getLugar()];
+                //ImageView valorC = comidasImg[Config.mesaServida];
+                //System.out.println("{{{{{{{{{{{{{{{{Salio"+((Cliente) o).getName()+" - "+((Cliente) o).getLugar());
                 Platform.runLater(()->{
-                    valorR.setImage(null);
                     valor.setImage(null);
-                    valorC.setImage(null);
+                    //valorC.setImage(null);
                 });
             }
         }/*else if(o instanceof Mesero){

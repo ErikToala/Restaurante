@@ -17,4 +17,5 @@ public class Config {
     public static int irAMesa = 0;
     public static double numReservacion = 0;
     public static int clientesAfuera = 0;
+    public static int ordenLista =0;
 }
