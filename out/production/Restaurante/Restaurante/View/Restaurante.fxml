@@ -97,11 +97,6 @@
             <Image url="@../Resources/Arbustito.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="70.0" fitWidth="65.0" layoutX="32.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../Resources/Bote.png" />
-         </image>
-      </ImageView>
       <Button layoutX="257.0" layoutY="657.0" mnemonicParsing="false" onMouseClicked="#OnMouseClickedStart" prefHeight="42.0" prefWidth="168.0" style="-fx-background-color: green;" text="Iniciar" textFill="WHITE">
          <font>
             <Font name="Bodoni MT Condensed Italic" size="22.0" />
@@ -152,5 +147,16 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="15.0" layoutX="586.0" layoutY="118.0" stroke="BLACK" strokeType="INSIDE" width="24.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="22.0" layoutX="688.0" layoutY="115.0" stroke="BLACK" strokeType="INSIDE" width="30.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="15.0" layoutX="691.0" layoutY="118.0" stroke="BLACK" strokeType="INSIDE" width="24.0" />
+      <ImageView fx:id="mesero1Img" fitHeight="37.0" fitWidth="50.0" layoutX="112.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+         <image>
+            <Image url="@../Resources/Mesero0.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="mesero0Img" fitHeight="37.0" fitWidth="50.0" layoutX="54.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true" rotate="180.0">
+         <image>
+            <Image url="@../Resources/Mesero1.png" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="34.0" layoutX="51.0" layoutY="333.0" stroke="BLACK" strokeType="INSIDE" width="123.0" />
    </children>
 </AnchorPane>

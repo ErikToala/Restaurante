@@ -35,7 +35,10 @@ public class RestauranteController implements Observer {
 
     @FXML
     private AnchorPane canvas;
-
+    @FXML
+    private ImageView mesero1Img;
+    @FXML
+    private ImageView mesero0Img;
 
     @FXML
     public void initialize(){
@@ -229,21 +232,37 @@ public class RestauranteController implements Observer {
                     //valorC.setImage(null);
                 });
             }
-        }/*else if(o instanceof Mesero){
-
+        }else if(o instanceof Mesero){
+            ImageView valorM = meserosImg[Config.irAMesa];
             if(String.valueOf(arg).compareTo("Atendido")==0){
+                System.out.println(Thread.currentThread().getName()+ " Atendió a Cliente");
+                Platform.runLater(()->{
+                    valorM.setImage(((Mesero )o).getImage());
+                    mesero0Img.setVisible(false);
+                    mesero1Img.setVisible(false);
+
+                });
+            }
+            if(String.valueOf(arg).compareTo("AgregarOrden")==0){
+                if(((Mesero) o).getImage().getUrl().equals("file:src/Restaurante/Resources/Mesero0.png")){
+                    Platform.runLater(()->{
+                        mesero0Img.setVisible(true);
+                        valorM.setImage(null);
+                    });
+                }else{
+                    Platform.runLater(()->{
+                        mesero1Img.setVisible(true);
+                        valorM.setImage(null);
+                    });
+                }
+            }
+            /*if(String.valueOf(arg).compareTo("Servido")==0){
                 ImageView valorM = meserosImg[Config.irAMesa];
                 Platform.runLater(()->{
                     valorM.setImage(((Mesero )o).getImage());
                 });
-            }
-            if(String.valueOf(arg).compareTo("Servido")==0){
-                ImageView valorM = meserosImg[Config.irAMesa];
-                Platform.runLater(()->{
-                    valorM.setImage(((Mesero )o).getImage());
-                });
-            }
-        }*/
+            }*/
+        }
     }
 
     public Image getClienteImage(){

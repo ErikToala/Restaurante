@@ -11,7 +11,10 @@ public class Monitor {
     private Random rnd;
     private boolean comidaLista;
     private boolean esperando;
+    private boolean isCalled;
     private int nCliente;
+    private Orden orden;
+
 
     public Monitor() {
         lugares = new Lugar[Config.cantClientes];
@@ -22,6 +25,7 @@ public class Monitor {
         nCliente = 0;
         comidaLista= false;
         esperando=false;
+        isCalled=false;
     }
 
     //Recepcionista
@@ -82,31 +86,39 @@ public class Monitor {
                 }
             }
         }
+        isCalled=true;
         this.notifyAll();
     }
 
     //Mesero
     public synchronized void atenderCliente(){
-        while(nCliente==0){
+        while(nCliente==0 || !isCalled){
             try {
                 this.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-
+        isCalled=false;
         for(int i =0; i<Config.capacidadRest;i++){
             if(lugares[i].getStatus().equals("Ocupado")){
+                Config.irAMesa = i;
                 lugares[i].setStatus("Atendido");
                 String name;
                 name = lugares[i].getName();
-                System.out.println(Thread.currentThread().getName()+ " Atendió a Cliente "+ name);
-                Orden orden = new Orden(name, "En proceso");
-                ordenes.add(orden);
-                this.notifyAll();
+                //System.out.println(Thread.currentThread().getName()+ " Atendió a Cliente "+ name);
+                orden = new Orden(name, "En proceso");
+                /*ordenes.add(orden);
+
+                this.notifyAll();*/
                 break;
             }
         }
+    }
+
+    public synchronized void agregarOrden(){
+        ordenes.add(orden);
+        this.notifyAll();
     }
 
     //Cliente
@@ -116,6 +128,7 @@ public class Monitor {
             try {
                 System.out.println("ESPERANDO..."+ Thread.currentThread().getName()+" - ");
                 this.wait();
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -136,12 +149,11 @@ public class Monitor {
                     for(int j=0;j<Config.capacidadRest;j++){
                         if(lugares[j].getStatus().equals("Atendido")){
                             if(lugares[j].getName().equals(orden.getName())){
-                                //esperando=false;
-
+                                esperando=false;
                                 this.notifyAll();
                                 System.out.println("Entrego orden "+ Thread.currentThread().getName());
                                 Config.mesaServida = j;
-                                Config.irAMesa = j;
+
                                 break;
                             }
                         }
@@ -152,8 +164,6 @@ public class Monitor {
 
         }
     }
-
-
 
  //Cocinero
     public synchronized void cocinarComida(){
