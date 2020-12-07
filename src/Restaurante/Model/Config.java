@@ -4,7 +4,7 @@ public class Config {
 
     //NO Cambian
     public static int capacidadRest = 20;
-    public static int cantClientes = 20;
+    public static int cantClientes = 50;
     public static double cantMeseros = (capacidadRest * .10);
     public static double cantCocinero = (capacidadRest * .10);
     public static double totalReservaciones = capacidadRest * .20;

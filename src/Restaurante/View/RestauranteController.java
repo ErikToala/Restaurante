@@ -66,9 +66,9 @@ public class RestauranteController implements Observer {
             imagesMesero[x] = new Image(file+"Mesero"+x+".png");
         }
 
-        for(int x = 0; x<numImgChef; x++){
+        /*for(int x = 0; x<numImgChef; x++){
             imagesChefs[x] = new Image(file+"Chef"+x+".png");
-        }
+        }*/
 
         //LLenar el Restaurante de Actores
         int a=0,b=0,c=0;
@@ -268,7 +268,7 @@ public class RestauranteController implements Observer {
                 });
             }
         }else if(o instanceof Mesero){
-            ImageView valorM = meserosImg[Config.irAMesa];
+            /*ImageView valorM = meserosImg[Config.irAMesa];
             if(String.valueOf(arg).compareTo("Atendido")==0){
                 System.out.println(Thread.currentThread().getName()+ " Atendió a Cliente");
 
@@ -283,13 +283,21 @@ public class RestauranteController implements Observer {
                         valorM.setImage(((Mesero )o).getImage());
                     });
                 }
-
-                /*Platform.runLater(()->{
+            }*/
+            /*if(String.valueOf(arg).compareTo("Servido")==0){
+                //ImageView valorM = meserosImg[Config.irAMesa];
+                Platform.runLater(()->{
                     valorM.setImage(((Mesero )o).getImage());
-                    mesero0Img.setVisible(false);
-                    mesero1Img.setVisible(false);
+                });
+            }*/
 
-                });*/
+        }else if(o instanceof Cocinero){
+            if(String.valueOf(arg).compareTo("ComidaLista")==0){
+                Image img = new Image("file:src/Restaurante/Resources/Comida.png");
+                ImageView valor = bufferComidas[Config.numComida];
+                Platform.runLater(()->{
+                    valor.setImage(img);
+                });
             }
             /*if(String.valueOf(arg).compareTo("AgregarOrden")==0){
                 if(((Mesero) o).getImage().getUrl().equals("file:src/Restaurante/Resources/Mesero0.png")){
@@ -304,20 +312,6 @@ public class RestauranteController implements Observer {
                     });
                 }
             }*/
-            /*if(String.valueOf(arg).compareTo("Servido")==0){
-                //ImageView valorM = meserosImg[Config.irAMesa];
-                Platform.runLater(()->{
-                    valorM.setImage(((Mesero )o).getImage());
-                });
-            }*/
-        }else if(o instanceof Cocinero){
-            if(String.valueOf(arg).compareTo("ComidaLista")==0){
-                Image img = new Image("file:src/Restaurante/Resources/Comida.png");
-                ImageView valor = bufferComidas[Config.numComida];
-                Platform.runLater(()->{
-                    valor.setImage(img);
-                });
-            }
         }
     }
 
